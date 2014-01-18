@@ -25,15 +25,22 @@
   (dorun (map generate-metric-results config)))
 
 (defn run-scheduler
-  []
-  (scheduler/every (* 5 60 1000)
-                   (fn []
-                     (info "Pushing composites to Cloudwatch")
-                     (dorun (generate-metrics-from-config (config/get-config))))
-                   scheduler-pool))
+  ([interval-in-seconds]
+   (run-scheduler interval-in-seconds nil))
+  ([interval-in-seconds run-duration-in-seconds]
+   (scheduler/every (* interval-in-seconds 1000)
+                    (fn []
+                      (info "Pushing composites to Cloudwatch")
+                      (dorun (generate-metrics-from-config (config/get-config))))
+                    scheduler-pool)
+   (when-not (nil? run-duration-in-seconds)
+     (do
+       (Thread/sleep (* run-duration-in-seconds 1000))
+       (scheduler/stop-and-reset-pool! scheduler-pool)))
+   nil))
 
 (defn -main
   [& args]
   (do
-    (run-scheduler)
+    (run-scheduler 300)
     (info "Started Scheduler.")))
