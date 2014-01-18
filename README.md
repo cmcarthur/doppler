@@ -2,7 +2,7 @@
 
 Doppler is a Clojure service for creating composite Cloudwatch metrics and alarms.
 
-Cloudwatch is a great tool for performing ad-hoc analysis. Its alarms are crippled by single metric reporting only. At [RJMetrics](http://rjmetrics.com), we have run into a few scenarios where composite Cloudwatch metrics come in handy. For example:
+Cloudwatch is a great tool for performing ad-hoc analysis and creating alarms for dev teams. Unfortunately, its alarms are hindered by the inability to specify multiple input metrics and apply conditional logic. At [RJMetrics](http://rjmetrics.com), we have run into a few scenarios where composite Cloudwatch metrics come in handy. For example:
 
  - When an SQS queue is backed up, but the consumers are not de-queueing messages;
  - Verifying that the number of messages through various services match up exactly;
