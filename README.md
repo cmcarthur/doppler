@@ -10,7 +10,11 @@ Cloudwatch is a great tool for performing ad-hoc analysis. Its alarms are crippl
 
 ## Usage
 
-Build an uberjar with `lein uberjar`, then run it.
+Build an uberjar with `lein uberjar`. Right now you need to provide AWS credentials in the local environment, like:
+
+```bash
+$ AWS_ACCESS_KEY_ID=<access key id> AWS_SECRET_ACCESS_KEY=<secret access key> java -jar doppler.jar
+```
 
 ## Config File
 
