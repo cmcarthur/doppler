@@ -58,8 +58,8 @@ You'll need to customize the config file in order to generate your own metrics. 
  ;; could be a multi-arity Clojure function, or a 2 input function called by `reduce`.
  :reducer -
 
- ;; :output defines metadata for the output metric. These values are equivalent to the values
- ;; provided in the :metrics collection above.
+ ;; :output defines metadata for the output metric. These values are equivalent to the
+ ;; values provided in the :metrics collection above.
  :output {:namespace "SQS"
           :name "ReceivedMinusSent"
           :unit "Count"
