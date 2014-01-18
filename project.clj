@@ -13,4 +13,5 @@
                  [com.amazonaws/aws-java-sdk "1.6.3"]
                  [overtone/at-at "1.2.0"]
                  [clj-time "0.6.0"]]
+  :profiles {:dev {:dependencies [[midje "1.5.1"]]}}
   :main cmcarthur.doppler.core)

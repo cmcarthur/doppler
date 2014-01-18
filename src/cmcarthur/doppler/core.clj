@@ -16,8 +16,9 @@
         reducer (:reducer config)
         metrics (:metrics config)
         output (:output config)
-        value-to-push (apply reducer (map (comp mapper cloudwatch/get-metric) metrics))]
-    (cloudwatch/push-metric output value-to-push)))
+        value-to-push (reduce reducer (map (comp mapper cloudwatch/get-metric) metrics))]
+    (cloudwatch/push-metric output value-to-push)
+    value-to-push))
 
 (defn generate-metrics-from-config
   [config]
