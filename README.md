@@ -2,7 +2,7 @@
 
 Doppler is a Clojure service for creating composite Cloudwatch metrics and alarms.
 
-Cloudwatch is a great tool for performing ad-hoc analysis. Its alarms are crippled by single metric reporting only. At [RJMetrics](http://rjmetrics.com), we have run into a few scenarios where composite Cloudwatch metrics come in handy. For example:
+Cloudwatch is a great tool for performing ad-hoc analysis and creating alarms for dev teams. Unfortunately, its alarms are hindered by the inability to specify multiple input metrics and apply conditional logic. At [RJMetrics](http://rjmetrics.com), we have run into a few scenarios where composite Cloudwatch metrics come in handy. For example:
 
  - When an SQS queue is backed up, but the consumers are not de-queueing messages;
  - Verifying that the number of messages through various services match up exactly;
@@ -10,7 +10,11 @@ Cloudwatch is a great tool for performing ad-hoc analysis. Its alarms are crippl
 
 ## Usage
 
-Build an uberjar with `lein uberjar`, then run it.
+Build an uberjar with `lein uberjar`. Right now you need to provide AWS credentials in the local environment, like:
+
+```bash
+$ AWS_ACCESS_KEY_ID=<access key id> AWS_SECRET_ACCESS_KEY=<secret access key> java -jar doppler.jar
+```
 
 ## Config File
 
@@ -54,8 +58,8 @@ You'll need to customize the config file in order to generate your own metrics. 
  ;; could be a multi-arity Clojure function, or a 2 input function called by `reduce`.
  :reducer -
 
- ;; :output defines metadata for the output metric. These values are equivalent to the values
- ;; provided in the :metrics collection above.
+ ;; :output defines metadata for the output metric. These values are equivalent to the
+ ;; values provided in the :metrics collection above.
  :output {:namespace "SQS"
           :name "ReceivedMinusSent"
           :unit "Count"
